@@ -2,7 +2,7 @@
 
 # script to revert to a snapshot of a NetApp Cloud Volume by mountpoint and snapshotId
 # Written by Graham Smith, NetApp July 2018
-# requires bash, jr and curl
+# requires bash, jq and curl
 # Version 0.0.1
 
 #set -x
