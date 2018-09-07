@@ -1,6 +1,6 @@
 #! /bin/bash
 
-# script to update service level and snapshot of NetApp Cloud Volume by mountpoint
+# script to update service level and allocated size of NetApp Cloud Volume by mountpoint
 # Written by Graham Smith, NetApp Sept 2018
 # requires bash, jq and curl
 # Version 0.0.1
