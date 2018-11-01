@@ -3,37 +3,40 @@
 # Script to create a NetApp Cloud Volume
 # Written by Graham Smith, NetApp July 2018
 # requires bash, jq and curl
-# Version 0.0.1
+# Version 0.0.2
 
 #set -x
 
-usage() { echo "Usage: $0 [-n <name> ] [-m <mountpoint> ] [-r <us-east|us-west> ] [-s <standard|premium|extreme> ] [ -a allocated_size_in_GB (100 to 100000) ] [-e <export> ] [-w <ro|rw> ] [-p <nfs3|smb|nfs3smb> ] [-t <tag> (optional) ][-c <config-file>]" 1>&2; exit 1; }
+usage() { echo "Usage: $0 [-n <name> ] [-m <mountpoint> ] [-r <region> ] [-l <standard|premium|extreme> ] [ -a allocated_size_in_GB (100 to 100000) ] [-e <export> ] [-w <ro|rw> ] [-p <nfs3|smb|nfs3smb> ] [ -s <snapshotId> (optional) ] [-t <tag> (optional) ][-c <config-file>]" 1>&2; exit 1; }
 
-while getopts ":n:m:r:s:a:e:w:p:t:c:" o; do
+while getopts ":n:m:r:l:a:e:w:p:s:t:c:" o; do
     case "${o}" in
         n)
-	    n=${OPTARG}
+		    n=${OPTARG}
             ;;
         m)
             m=${OPTARG}
             ;;
-	r)
-	    r=${OPTARG}
+		r)
+		    r=${OPTARG}
             ;;
-	s)
-	    s=${OPTARG}
+		l)
+		    l=${OPTARG}
             ;;
-	a)
-	    a=${OPTARG}
+		a)
+		    a=${OPTARG}
             ;;
         e)
-	    e=${OPTARG}
+		    e=${OPTARG}
             ;;
         w)
-	    w=${OPTARG}
+		    w=${OPTARG}
             ;;
         p)
-	    p=${OPTARG}
+		    p=${OPTARG}
+            ;;
+        s)
+            t=${OPTARG}
             ;;
         t)
             t=${OPTARG}
@@ -48,24 +51,24 @@ while getopts ":n:m:r:s:a:e:w:p:t:c:" o; do
 done
 shift $((OPTIND-1))
 
-if [ -z "${n}" ] || [ -z "${m}" ] || [ -z "${r}" ] || [ -z "${s}" ] || [ -z "${a}" ] || [ -z "${w}" ] || [ -z "${p}" ] || [ -z "${c}" ]; then
+if [ -z "${n}" ] || [ -z "${m}" ] || [ -z "${r}" ] || [ -z "${l}" ] || [ -z "${a}" ] || [ -z "${w}" ] || [ -z "${p}" ] || [ -z "${c}" ]; then
     usage
 fi
 
-if [ $r != "us-east" ] && [ $r != "us-west" ]; then
+#if [ $r != "us-east" ] && [ $r != "us-west" ]; then
+#    usage
+#fi
+
+if [ $l != "standard" ] && [ $l != "premium" ] && [ $l != "extreme" ]; then
     usage
 fi
 
-if [ $s != "standard" ] && [ $s != "premium" ] && [ $s != "extreme" ]; then
-    usage
+if [ $l = "standard" ]; then
+    l=basic
 fi
 
-if [ $s = "standard" ]; then
-    s=basic
-fi
-
-if [ $s = "premium" ]; then
-    s=standard
+if [ $l = "premium" ]; then
+    l=standard
 fi
 
 if [[ $a != ?(-)+([0-9]) ]]; then
@@ -106,9 +109,10 @@ volume=$(curl -s -H accept:application/json -H "Content-type: application/json" 
 {"name": "'$n'",
 "creationToken": "'$m'",
 "region": "'$r'",
-"serviceLevel": "'$s'",
+"serviceLevel": "'$l'",
 "quotaInBytes": '$a',
 "exportPolicy": {"rules": [{"ruleIndex": 1,"allowedClients":"'$e'","unixReadOnly": '$ro',"unixReadWrite": '$rw',"cifs": '$cifs',"nfsv3": '$nfs3',"nfsv4": false}]},
+"snapshotId": "'$s'",
 "labels": ["'$t'"]}'
 )
 
