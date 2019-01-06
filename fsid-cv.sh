@@ -31,7 +31,7 @@ fi
 source $c
 
 # get filesystem info
-filesystems=$(curl -s -H accept:application/json -H "Content-type: application/json" -H api-key:$apikey -H secret-key:$secretkey -X GET $url/v1/FileSystems)
+filesystems=$(curl -s -H accept:application/json -H "Content-type: application/json" -H api-key:$apikey -H secret-key:$secretkey -X GET $url/FileSystems)
 
 # get filesystemIds
 ids=$(echo $filesystems |jq -r ''|grep fileSystemId |cut -d '"' -f 4)
