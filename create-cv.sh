@@ -71,9 +71,9 @@ if [ $l = "premium" ]; then
     l=standard
 fi
 
-if [[ $a != ?(-)+([0-9]) ]]; then
-    usage
-fi
+#if [[ $a != ?(-)+([0-9]) ]]; then
+#    usage
+#fi
 
 if (( $a < 100 || $a > 1000000 )); then
     usage

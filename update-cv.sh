@@ -3,7 +3,7 @@
 # script to update service level and allocated size of NetApp Cloud Volume by mountpoint
 # Written by Graham Smith, NetApp Sept 2018
 # requires bash, jq and curl
-# Version 0.2
+# Version 0.3
 
 #set -x
 
@@ -39,16 +39,16 @@ if [ $l != "standard" ] && [ $l != "premium" ] && [ $l != "extreme" ]; then
 fi
 
 if [ $l = "standard" ]; then
-    s=basic
+    l=basic
 fi
 
 if [ $l = "premium" ]; then
-    s=standard
+    l=standard
 fi
 
-if [[ $a != ?(-)+([0-9]) ]]; then
-    usage
-fi
+#if [[ $a != ?(-)+([0-9]) ]]; then
+#    usage
+#fi
 
 if (( $a < 100 || $a > 1000000 )); then
     usage
