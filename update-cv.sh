@@ -73,10 +73,10 @@ if [ "${#ids}" == "0" ]; then
 fi
 
 # get region
-region=$(echo $filesystems |jq -r '' | grep -i -B 1 $m |grep region |cut -d '"' -f 4)
+region=$(echo $filesystems |jq -r '' | grep -i -B 1 '"'$m'"' |grep region |cut -d '"' -f 4)
 
 # Find matching filesystemId
-fileSystemId=$(echo $filesystems |jq -r ''| grep -i -B 10 $m |grep fileSystemId | cut -d '"' -f 4)
+fileSystemId=$(echo $filesystems |jq -r ''| grep -i -B 10 '"'$m'"' |grep fileSystemId | cut -d '"' -f 4)
 
 if [ "${#fileSystemId}" == "0" ]; then
 	echo "Please check the mountpoint is correct"

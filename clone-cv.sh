@@ -75,7 +75,7 @@ if [ "${#ids}" == "0" ]; then
 fi
 
 # Find matching filesystemId
-fileSystemId=$(echo $filesystems |jq -r ''| grep -i -B 10 '"creationToken": "'$m'' |grep fileSystemId | cut -d '"' -f 4)
+fileSystemId=$(echo $filesystems |jq -r ''| grep -i -B 10 '"creationToken": "'$m'"''' |grep fileSystemId | cut -d '"' -f 4)
 echo $fileSystemId
 
 if [ "${#fileSystemId}" == "0" ]; then
