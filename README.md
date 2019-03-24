@@ -1,7 +1,7 @@
 ## cvs-api
 
 ## Overview
-tl;dr: Bash scripts written to demonstrate the APIs for the NetApp Cloud Volumes service for AWS, to programmatically create, modify, clone, snap, revert and delete CVS volumes.
+Bash scripts written to demonstrate the APIs for the NetApp Cloud Volumes service for AWS, to programmatically create, modify, clone, snap, revert and delete CVS volumes.
 
 ## What is Cloud Volume Services (CVS)?
 NetApp's Cloud Voume Service provides high performance shared storage over NFS and SMB for AWS customers. For more info, head to https://cloud.netapp.com/cloud-volumes-service-for-aws
