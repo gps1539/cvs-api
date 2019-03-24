@@ -53,7 +53,7 @@ fi
 snapshots=$(curl -s -H accept:application/json -H "Content-type: application/json" -H api-key:$apikey -H secret-key:$secretkey -X GET $url/FileSystems/$fileSystemId/Snapshots)
 
 echo 
-echo "Snapshots details for " $m
+echo "Snapshots details for" $m
 echo 
 echo $snapshots | jq 
 
